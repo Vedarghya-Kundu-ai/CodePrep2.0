@@ -1,0 +1,112 @@
+/* History Page Container */
+.history-container {
+  display: flex;
+  flex-direction: column;
+  max-width: 900px;
+  margin: 0 auto 40px auto;
+  padding: 0 20px 20px 20px;
+  color: #f1f1f1;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Fixed Heading */
+.history-heading {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #58a6ff;
+  text-align: center;
+
+  position: fixed;
+  top: 70px; /* distance from top */
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 1000;
+  background: #0d1117;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+/* Spacer div to push content below fixed heading */
+.history-spacer {
+  height: calc(2rem + 10px); /* match heading height + padding */
+}
+
+/* Questions list wrapper */
+.questions-list{
+  margin-top: -180px;
+}
+.questions-list ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+/* List object styles remain unchanged */
+.list-object {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  background: #2d2f43;
+  padding: 16px 18px;
+  border-radius: 10px;
+  border: 1px solid #3b3f58;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.25);
+  gap: 15px;
+  transition: transform 0.2s ease, box-shadow 0.3s ease;
+}
+
+.list-object:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.35);
+}
+
+.list-object span {
+  flex: 1;
+  font-size: 1rem;
+  line-height: 1.5;
+  color: #f1f1f1;
+  word-wrap: break-word;
+  white-space: pre-wrap;
+}
+
+.remove-history {
+  background: #e63946;
+  color: #fff;
+  border: none;
+  padding: 8px 14px;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+
+.remove-history:hover {
+  background: #d62839;
+  transform: scale(1.05);
+}
+
+.remove-history:active {
+  transform: scale(0.97);
+}
+
+/* Responsive tweaks */
+@media (max-width: 768px) {
+  .history-spacer {
+    height: calc(2.5rem + 10px); /* adjust for mobile heading size */
+  }
+
+  .list-object {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+
+  .remove-history {
+    align-self: flex-end;
+  }
+}

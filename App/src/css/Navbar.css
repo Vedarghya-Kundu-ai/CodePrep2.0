@@ -1,0 +1,100 @@
+/* Navbar.css */
+.navbar {
+  display: flex;
+  justify-content: space-around;  /* logo left, nav-right pushed to right */
+  align-items: center;
+  gap: 800px;
+  padding: 40px;
+  background-color: #0d1117;
+  padding: 15px 30px;
+  border-bottom: 1px solid #222;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1000;
+}
+
+/* Logo */
+.logo {
+  color: #58a6ff;
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+/* Container for links + button */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+}
+
+/* Links */
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 30px;
+  margin: 0;
+  padding: 0;
+}
+
+.nav-links li a {
+  text-decoration: none;
+  color: #c9d1d9;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav-links li a:hover {
+  color: #58a6ff;
+}
+
+/* Signout button */
+.signout-btn {
+  background: linear-gradient(135deg, #d73a49, #f85149);
+  border: none;
+  border-radius: 6px;
+  padding: 8px 14px;
+  font-size: 0.95rem;
+  font-weight: bold;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.2s, background 0.3s ease;
+}
+
+.signout-btn:hover {
+  background: linear-gradient(135deg, #f85149, #ff6b6b);
+  transform: scale(1.05);
+}
+
+/* 🔹 Responsive Adjustments */
+@media (max-width: 900px) {
+  .nav-links {
+    gap: 15px; /* smaller gaps on medium screens */
+  }
+}
+
+@media (max-width: 600px) {
+  .navbar {
+    flex-direction: column; /* stack logo and nav */
+    align-items: flex-start;
+    padding: 15px;
+  }
+
+  .nav-right {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 15px;
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .nav-links {
+    flex-direction: column; /* links stacked vertically */
+    gap: 12px;
+  }
+
+  .signout-btn {
+    align-self: flex-start;
+  }
+}

@@ -1,0 +1,115 @@
+/* Main container */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;  
+  background-color: #0d1117;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Heading */
+.dashboard-heading {
+  font-size: clamp(2rem, 5vw, 3.2rem); /* responsive but fixed max */
+  font-weight: bold;
+  color: #58a6ff;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.4;
+  width: 0;
+  animation: typing 3s steps(30, end) forwards;
+}
+
+/* Subheading */
+.dashboard-subheading {
+  font-size: clamp(1.2rem, 4vw, 2.2rem);
+  font-weight: 300;
+  color: white;
+  margin-top: -5px;
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  line-height: 1.4;
+  width: 0;
+  animation: typing 3s steps(25, end) forwards;
+  animation-delay: 3.2s;
+}
+
+/* Keyframes */
+@keyframes typing {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+/* Text area */
+.question-space input {
+  width: 550px; /* stays same */
+  min-height: 40px;
+  padding: 18px;
+  border-radius: 12px;
+  border: 2px solid #30363d;
+  background-color: #ffffff;
+  color: #0d1117;
+  font-size: 1.1rem;
+  font-weight: 500;
+  outline: none;
+  transition: all 0.3s ease;
+  display: block;
+  margin-top: 40px;
+  box-sizing: border-box;
+}
+
+.question-space input:focus {
+  border-color: #58a6ff;
+  box-shadow: 0 0 12px rgba(88,166,255,0.7);
+  transform: scale(1.01);
+}
+
+/* Submit button */
+.question-space button {
+  margin-top: 25px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: 160px;  /* fixed size */
+  padding: 14px;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #238636, #2ea043);
+  color: white;
+  font-weight: bold;
+  font-size: 1.1rem;
+  cursor: pointer;
+  transition: background 0.3s ease, transform 0.2s;
+}
+
+.question-space button:hover {
+  background: linear-gradient(135deg, #2ea043, #3fb950);
+  transform: translateY(-3px) scale(1.05);
+}
+
+/* 🔹 Responsive tweaks (only text sizes + spacing change) */
+@media (max-width: 768px) {
+  .dashboard-heading {
+    font-size: 2rem;
+  }
+
+  .dashboard-subheading {
+    font-size: 1.4rem;
+    margin-top: 5px;
+  }
+}
+
+@media (max-width: 480px) {
+  .dashboard-heading {
+    font-size: 1.6rem;
+  }
+
+  .dashboard-subheading {
+    font-size: 1.1rem;
+  }
+}

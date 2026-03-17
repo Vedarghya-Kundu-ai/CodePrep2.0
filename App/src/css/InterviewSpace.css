@@ -1,0 +1,226 @@
+/* .container {
+    display: flex;
+    height: 100vh;
+    padding: 100px;
+    gap: 20px;
+    box-sizing: border-box;
+
+} */
+
+/* Left column: Interview + Transcript stacked vertically */
+/* .left-panel {
+
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    gap: 20px;
+} */
+
+/* Right column: Code editor takes most space */
+/* \CSS */
+/* Code editor: proper border and subtle depth */
+/* .code-editor {
+  flex: 2;
+  width: 50vw;
+
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  justify-content: center;
+  align-items: center;
+
+  background-color: #161b22;
+  padding: 12px;
+  border-radius: 10px;
+
+
+  border: 1px solid #2b3242;
+ 
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.28);
+}
+ */
+/* Title remains as you had it */
+/* .code-editor h2 {
+  display: flex;
+  align-items: center;
+  margin-top: -10px;
+  margin-bottom: 10px;
+  color: #58a6ff;
+} */
+
+/* Footer: center the Submit button and space it cleanly */
+/* .submit-code-btn {
+  display: flex;
+  justify-content: center; 
+  align-items: center;
+  padding: 10px 0;
+  margin-top: 8px;
+
+
+  border-top: 1px solid #2b3242;
+}
+
+.submit-code-btn button {
+  appearance: none;
+  border: 1px solid #3b4352;
+  border-radius: 8px;
+  padding: 9px 18px;
+  min-width: 132px;
+
+  font-size: 13px;
+  font-weight: 600;
+  color: #eaeaea;
+  background-color: #0e639c;  
+  cursor: pointer; */
+
+/*   transition:
+    background-color 120ms ease,
+    border-color 120ms ease,
+    transform 80ms ease,
+    box-shadow 140ms ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+}
+
+.submit-code-btn button:hover {
+  background-color: #1177bb;
+  border-color: #4a5366;
+  box-shadow: 0 10px 22px rgba(0, 0, 0, 0.32);
+}
+
+.submit-code-btn button:active {
+  transform: translateY(1px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+}
+
+.submit-code-btn button:focus-visible {
+  outline: 2px solid #3794ff;
+  outline-offset: 2px;
+}
+ */
+/* Shared card styles */
+/* .interview-space,
+.user-response {
+    background: #2d2f43;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 0 12px rgba(0, 0, 0, 0.3);
+    border: 1px solid #3b3f58;
+    height: 100%;
+} */
+
+/* Dimensions */
+/* .interview-space {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+    width: 30vw;
+}
+.user-response {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+    align-items: center;
+ 
+    width: 30vw;
+} */
+/* Display transcript */
+.display-transcript{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.transcription-sententence {
+  font-family: "Space Mono", ui-monospace, monospace;
+  font-size: 0.95rem;
+  color: #e2e8f0;
+  text-align: center;
+
+  opacity: 0;
+  animation: fadeIn 0.5s ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.ai-speaking,
+.user-speaking {
+  border: 1px solid rgba(196, 82, 122, 0.58);
+  box-shadow: 0 0 28px rgba(139, 94, 169, 0.35);
+  transition: all 0.3s ease-in-out;
+}
+
+/* Mic button base */
+/* .mic-button {
+  margin-top: 0px;
+  height: 115px;
+  width: 115px;            
+  border: none;
+  border-radius: 50%;       
+  cursor: pointer;
+  display: inline-block;
+  object-fit: contain;
+  background: transparent;   
+  transition:
+    transform 180ms ease,
+    box-shadow 180ms ease,
+    filter 180ms ease;
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+  filter: brightness(0.95) contrast(1.05);
+  will-change: transform, box-shadow, filter;
+} */
+
+/* Hover “pop” effect */
+/* .mic-button:hover {
+  transform: translateY(-2px) scale(1.08);
+  box-shadow:
+    0 10px 24px rgba(0, 0, 0, 0.35),
+    0 0 12px rgba(88, 166, 255, 0.35); 
+  filter: brightness(1) contrast(1.1);
+} */
+
+/* Active/pressed feedback */
+/* .mic-button:active {
+  transform: translateY(0) scale(1.02);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.28);
+  filter: brightness(0.97);
+} */
+
+/* Optional: focus ring for keyboard accessibility */
+/* .mic-button:focus-visible {
+  outline: none;
+  box-shadow:
+    0 0 0 3px rgba(88, 166, 255, 0.5),
+    0 8px 20px rgba(0, 0, 0, 0.3);
+} */
+
+/* If the mic is an <img>, remove global button hover color bleed */
+/* button:hover .mic-button,
+.mic-button:hover {
+  background: transparent;
+} */
+
+/* .stop-btn {
+  font-size: 16px;
+  transition: font-size 0.1s ease-in, background-color 0.3s ease-in;
+}
+
+.stop-btn:hover {
+  font-size: 18px;      
+  background-color: #e63946; 
+} */
+
+/* GIF style */
+/* .animated-gif {
+    display: flex;
+    justify-content: center;
+}
+.animated-gif img {
+    width: 130px;
+    object-fit: contain;
+    margin-top: 10px;
+}
+ */
