@@ -1,6 +1,8 @@
 import { auth } from "../../firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 import React, { useEffect, useState, createContext, useContext } from "react";
+import axios from "axios";
+import { API_BASE_URL } from "../../lib/utils";
 
 const AuthContext = React.createContext();
 
@@ -12,26 +14,54 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
     const[userLoggedIn, setUserLoggedIn] = useState(false);
     const[loading, setLoading] = useState(true);
+    const [userProfile, setUserProfile] = useState(null);
     
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
         return unsubscribe; 
     }, [])
 
+    async function refreshUserProfile() {
+        if (currentUser?.uid) {
+            try {
+                const response = await axios.get(`${API_BASE_URL}/users/${currentUser.uid}`);
+                setUserProfile(response.data);
+            } catch (error) {
+                console.error("Failed to fetch user profile:", error);
+            }
+        }
+    }
+
     async function initializeUser(user) {
         if(user){
             setCurrentUser({...user});
             setUserLoggedIn(true);
+            // Sync user with backend on login
+            try {
+                await axios.post(`${API_BASE_URL}/users/sync`, {
+                    user_id: user.uid,
+                    email: user.email || "",
+                    auth_provider: "firebase"
+                });
+                // Fetch the full user profile after sync
+                const response = await axios.get(`${API_BASE_URL}/users/${user.uid}`);
+                setUserProfile(response.data);
+            } catch (error) {
+                console.error("Failed to sync user with backend:", error);
+            }
         } else{
             setCurrentUser(null);
             setUserLoggedIn(false);
+            setUserProfile(null);
         }
         setLoading(false)
     }
     const value = {
         currentUser,
         userLoggedIn,
-        loading
+        loading,
+        userProfile,
+        refreshUserProfile
     }
 
     return (

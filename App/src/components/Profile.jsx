@@ -4,8 +4,7 @@ import axios from "axios";
 
 import { useAuth } from "../contexts/authContext";
 import { doDeleteCurrentUser } from "../firebase/auth";
-
-const API_BASE_URL = "http://127.0.0.1:8000";
+import { API_BASE_URL } from "../lib/utils";
 
 function Profile() {
   const { currentUser, userLoggedIn, userProfile, refreshUserProfile } = useAuth();

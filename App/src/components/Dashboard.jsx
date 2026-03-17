@@ -4,6 +4,7 @@ import { useAuth } from '../contexts/authContext';
 import axios from 'axios';
 import { gsap } from 'gsap';
 import { DSA_ROADMAP } from '../lib/dsaRoadmap';
+import { API_BASE_URL } from '../lib/utils';
 
 const difficultyStyles = {
     Easy: "border-emerald-300/35 bg-emerald-400/10 text-emerald-200",
@@ -61,7 +62,7 @@ function Dashboard(){
         } else {
             setGeneratingQuestionId(questionId);
             try {
-                await axios.post("http://127.0.0.1:8000/add_question", {
+                await axios.post(`${API_BASE_URL}/add_question`, {
                     user: currentUser.uid,
                     question: selectedQuestion,
                 });

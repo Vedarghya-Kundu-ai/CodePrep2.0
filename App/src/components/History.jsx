@@ -3,6 +3,7 @@ import { useAuth } from "../contexts/authContext";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
+import { API_BASE_URL } from "../lib/utils";
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
@@ -58,7 +59,7 @@ function History() {
 
   useEffect(() => {
     if (currentUser) {
-      axios.get(`http://127.0.0.1:8000/questions/${userId}`)
+      axios.get(`${API_BASE_URL}/questions/${userId}`)
         .then(res => {
           setQuestions(res.data);
         });
@@ -81,7 +82,7 @@ function History() {
 
   async function handleDelete(id) {
     try {
-      await axios.delete(`http://127.0.0.1:8000/questions/${currentUser.uid}/${id}`);
+      await axios.delete(`${API_BASE_URL}/questions/${currentUser.uid}/${id}`);
       setQuestions((prev) => prev.filter(q => q.id !== id));
     } catch (error) {
       console.log("couldn't delete question", error);
