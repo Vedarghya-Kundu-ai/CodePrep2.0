@@ -66,7 +66,7 @@ function InterviewSpace() {
     const navigate = useNavigate();
     
     useEffect(() => {
-        const vapi = new Vapi("4daa5c7d-b903-488c-bbdd-8e3b21e46831");
+        const vapi = new Vapi("1032d554-5923-421a-ac5d-f3e1cd99eb44");
         vapiref.current = vapi;
         vapiref.current.on('message', (message) => {
             if(message.role == "assistant") {
@@ -101,10 +101,7 @@ function InterviewSpace() {
     
     const handleMicClick = () => {
         if(interviewActive == true) {
-            if(callStarted == false) {
-                setMicActive(false);
-                setCallStarted(true);
-            }
+            // Simply toggle mute/unmute during active call
             if(micActive) {
                 vapiref.current.setMuted(true);
                 setMicActive(false);
@@ -117,7 +114,7 @@ function InterviewSpace() {
             return ;
         } else {
             if(!questionForInterview) {
-                alert("Please enter a question in your Dashboard to start the interview");
+                alert("Please ensure that you have selected a topic");
                 setInterviewActive(false);
                 navigate("/Dashboard");
                 return ;
@@ -125,7 +122,8 @@ function InterviewSpace() {
                 // logic to start the interview
                 setMicActive(true);
                 setInterviewActive(true);
-                vapiref.current.start("fac7a826-d3a8-4fdd-928c-e5289074ae3d", assistantoverrides);
+                setCallStarted(true);
+                vapiref.current.start("887b353f-ce96-42a3-8fd5-9845559af6ef", assistantoverrides);
             }
         }
     };
