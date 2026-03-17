@@ -16,11 +16,7 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     # Updated: include both localhost and 127.0.0.1 dev origins for frontend API calls.
-    allow_origins=[
-        "http://localhost:5173",
-        "http://127.0.0.1:5173",
-        "https://code-prep-omega.vercel.app",
-    ],
+    allow_origins=["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
