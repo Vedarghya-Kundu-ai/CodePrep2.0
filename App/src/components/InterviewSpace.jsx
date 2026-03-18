@@ -66,7 +66,7 @@ function InterviewSpace() {
     const navigate = useNavigate();
     
     useEffect(() => {
-        const vapi = new Vapi("1032d554-5923-421a-ac5d-f3e1cd99eb44");
+        const vapi = new Vapi(import.meta.env.VITE_VAPI_API_KEY); // VAPI_API_KEY
         vapiref.current = vapi;
         vapiref.current.on('message', (message) => {
             if(message.role == "assistant") {
@@ -143,7 +143,7 @@ function InterviewSpace() {
         } else {
             setMicActive(true);
             setInterviewActive(true);
-            vapiref.current.start("887b353f-ce96-42a3-8fd5-9845559af6ef", assistantoverrides);
+            vapiref.current.start(import.meta.env.VITE_VAPI_ASSISTANT_ID, assistantoverrides);
         }
     }
 
