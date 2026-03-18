@@ -5,4 +5,8 @@ export function cn(...inputs) {
   return twMerge(clsx(inputs));
 }
 
-export const API_BASE_URL = "https://codeprep2-0-1.onrender.com";
+// For local development:
+export const API_BASE_URL = "http://localhost:8000";
+
+// For production, use:
+// export const API_BASE_URL = "https://codeprep2-0-1.onrender.com";
