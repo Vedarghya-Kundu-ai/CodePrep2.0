@@ -1,4 +1,4 @@
-# CodePrep 2.0 - AI-Powered Coding Interview Platform
+# CodePrep - AI-Powered Coding Interview Platform
 
 Building confidence in coding interviews through AI-powered mock interviews with real-time feedback and code review.
 
