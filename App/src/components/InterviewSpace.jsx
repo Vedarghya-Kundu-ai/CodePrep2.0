@@ -118,12 +118,6 @@ function InterviewSpace() {
                 setInterviewActive(false);
                 navigate("/Dashboard");
                 return ;
-            } else {
-                // logic to start the interview
-                setMicActive(true);
-                setInterviewActive(true);
-                setCallStarted(true);
-                vapiref.current.start("887b353f-ce96-42a3-8fd5-9845559af6ef", assistantoverrides);
             }
         }
     };
@@ -149,7 +143,7 @@ function InterviewSpace() {
         } else {
             setMicActive(true);
             setInterviewActive(true);
-            vapiref.current.start("fac7a826-d3a8-4fdd-928c-e5289074ae3d", assistantoverrides);
+            vapiref.current.start("887b353f-ce96-42a3-8fd5-9845559af6ef", assistantoverrides);
         }
     }
 
@@ -252,4 +246,3 @@ function InterviewSpace() {
 }
 
 export default InterviewSpace;
-
