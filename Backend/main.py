@@ -21,7 +21,7 @@ async def simple_timer(request: Request, call_next):
     response = await call_next(request)
     duration = time.time() - start
 
-    print(f"{request.url.path} -> {round(duration * 1000)} ms")
+    print(f"{request.url.path} -> {round(duration * 1000)} ms", flush=True)
 
     return response
 
