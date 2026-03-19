@@ -5,6 +5,8 @@ import uuid
 from typing import List, Optional
 
 from fastapi import Depends, FastAPI, HTTPException
+import time
+from fastapi import Request
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from sqlalchemy.orm import Session
@@ -12,6 +14,16 @@ from sqlalchemy.orm import Session
 from models import QuestionDB, SessionLocal, UserDB
 
 app = FastAPI()
+
+@app.middleware("http")
+async def simple_timer(request: Request, call_next):
+    start = time.time()
+    response = await call_next(request)
+    duration = time.time() - start
+
+    print(f"{request.url.path} -> {round(duration * 1000)} ms")
+
+    return response
 
 app.add_middleware(
     CORSMiddleware,
