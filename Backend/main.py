@@ -15,7 +15,7 @@ from models import QuestionDB, SessionLocal, UserDB
 
 app = FastAPI()
 
-@app.middleware("http")
+""" @app.middleware("http")
 async def simple_timer(request: Request, call_next):
     start = time.time()
     response = await call_next(request)
@@ -23,7 +23,7 @@ async def simple_timer(request: Request, call_next):
 
     print(f"{request.url.path} -> {round(duration * 1000)} ms")
 
-    return response
+    return response """
 
 app.add_middleware(
     CORSMiddleware,
