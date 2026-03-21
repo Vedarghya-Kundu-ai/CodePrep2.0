@@ -51,14 +51,6 @@ function Navbar() {
                 History
               </Link>
             </li>
-            <li>
-              <Link
-                to="/Profile"
-                className="amber-link"
-              >
-                Profile
-              </Link>
-            </li>
           </>
         )}
 
