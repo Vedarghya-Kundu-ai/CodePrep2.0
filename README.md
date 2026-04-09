@@ -1,5 +1,7 @@
 # CodePrep - AI-Powered Coding Interview Platform
 
+**TESTING MODE NOTE**: This version currently runs without authentication to make testing easier. All the authentication and authorization code (Firebase, user profiles, login/signup) has been commented out and preserved in the codebase, so you can enable it again whenever needed.
+
 Building confidence in coding interviews through AI-powered mock interviews with real-time feedback and code review.
 
 ![React](https://img.shields.io/badge/React-19.1.0-blue?logo=react)
@@ -9,20 +11,21 @@ Building confidence in coding interviews through AI-powered mock interviews with
 
 ---
 
-## 🎯 Features
+## Features
 
-- **AI-Powered Coding Interviews**: Real-time conversational mock coding interviews with AI interviewer powered by Vapi AI
-- **Multi-Language Code Editor**: Write code in Python, JavaScript, TypeScript, Java, C++, C with Monaco Editor
-- **Live Transcription**: See both your and the AI's responses in real-time
-- **User Authentication**: Secure Firebase authentication (Email/Password & Google Sign-in)
-- **User Profiles**: Customizable profiles with username, bio, social links (LinkedIn, GitHub, X)
-- **Question History**: Track all your practice questions and maintain interview history
-- **Responsive Design**: Fully responsive UI optimized for mobile, tablet, and desktop
-- **Production Ready**: Deployed backend and frontend with proper CORS configuration
+- **AI-Powered Coding Interviews**: Real-time conversational mock coding interviews with an AI interviewer powered by Vapi AI
+- **Multi-Language Code Editor**: Write code in Python, JavaScript, TypeScript, Java, C++, or C using Monaco Editor
+- **Live Transcription**: See both your responses and the AI's responses in real-time
+- **Question History**: Keep track of all the practice questions you've worked through
+- **Responsive Design**: Works smoothly on mobile, tablet, and desktop
+- **Easy to Test**: Currently running without authentication so you can jump in and start practicing immediately
+- **Production Ready**: Both backend and frontend are deployed with proper CORS setup
+
+**Note**: Firebase authentication and user profiles are commented out but available if you want to re-enable them.
 
 ---
 
-## 🏗️ Project Structure
+## Project Structure
 
 ```
 CodePrep2.0/
@@ -61,15 +64,56 @@ CodePrep2.0/
 
 ---
 
-## 🚀 Getting Started
+## Testing Mode - Authless Configuration
+
+This version is set up in testing mode without authentication, so you can immediately start using all features without logging in. None of the original authentication code has been deleted—it's all just commented out and easy to re-enable when you're ready.
+
+### What's turned off for testing:
+
+Firebase authentication (Email/Password and Google Sign-in), user registration, login pages, user profile storage, and per-user data isolation. The backend user management endpoints are also commented out.
+
+### How it works right now:
+
+Everyone uses the same mock user account (authless-user-001). All features are immediately accessible without any login. Questions get stored under this shared account, and there's no authentication required for any of the app's routes.
+
+### Files that were modified:
+
+**Backend (main.py)**
+- UserDB model and all user endpoints are commented out
+- Auth helper functions like hash_password and generate_random_username are commented out
+- Question endpoints (POST, GET, DELETE) still work normally
+
+**Frontend Components**
+- src/contexts/authContext/index.jsx uses a mock user instead of Firebase
+- src/components/Login.jsx has auth disabled and doesn't actually do anything
+- src/components/SignUp.jsx just redirects to the Dashboard
+- src/components/Dashboard.jsx removes the auth check before starting interviews
+- src/components/History.jsx loads questions for the authless user
+- src/components/Profile.jsx has profile editing disabled but the page is still accessible
+- src/components/Navbar.jsx sign out button just takes you back to the Dashboard
+
+### How to get authentication back:
+
+When you're ready to re-enable authentication:
+
+1. In Backend/main.py: find all the `# AUTHLESS:` comments and uncomment those sections
+2. In all React components: find all the `// AUTHLESS:` comments and uncomment those sections
+3. In src/contexts/authContext/index.jsx: restore the Firebase imports and auth listeners
+4. In models.py: uncomment the UserDB import and make sure the tables get created
+
+All the original code is still there with clear markers so it's easy to find and restore.
+
+---
+
+## Getting Started
 
 ### Prerequisites
 
 - **Node.js** 16+ (for frontend)
 - **Python** 3.8+ (for backend)
 - **Git** (for version control)
-- **Firebase Account** (for authentication)
 - **Vapi AI Account** (for AI interviews)
+- *Firebase Account* (only needed to re-enable authentication)
 
 ### Installation
 
