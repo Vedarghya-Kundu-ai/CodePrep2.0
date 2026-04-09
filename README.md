@@ -190,29 +190,29 @@ const firebaseConfig = {
 
 ---
 
-## 📚 Tech Stack
+## Tech Stack
 
 ### Frontend
-- **React 19.1.0** - UI framework
-- **Vite 7.1.3** - Build tool & dev server
-- **Tailwind CSS 4** - Utility-first CSS
-- **Monaco Editor** - Advanced code editor
-- **Firebase 12.1.0** - Authentication & backend integration
-- **Axios 1.11.0** - HTTP client
-- **React Router 7.8.1** - Client-side routing
-- **GSAP 3.13.0** - Animation library
-- **Vapi AI Web** - Voice interview AI
+- React 19.1.0 - UI framework
+- Vite 7.1.3 - Build tool & dev server
+- Tailwind CSS 4 - Utility-first CSS
+- Monaco Editor - Advanced code editor
+- Firebase 12.1.0 - Authentication & backend integration
+- Axios 1.11.0 - HTTP client
+- React Router 7.8.1 - Client-side routing
+- GSAP 3.13.0 - Animation library
+- Vapi AI Web - Voice interview AI
 
 ### Backend
-- **FastAPI** - Modern Python web framework
-- **Uvicorn** - ASGI server
-- **SQLAlchemy** - ORM (Object Relational Mapping)
-- **Pydantic** - Data validation
-- **SQLite** - Lightweight database
+- FastAPI - Modern Python web framework
+- Uvicorn - ASGI server
+- SQLAlchemy - ORM (Object Relational Mapping)
+- Pydantic - Data validation
+- SQLite - Lightweight database
 
 ---
 
-## 🔌 API Endpoints
+## API Endpoints
 
 ### Questions Management
 | Method | Endpoint | Description |
@@ -221,7 +221,8 @@ const firebaseConfig = {
 | GET | `/questions/{user_id}` | Get all questions for a user |
 | DELETE | `/questions/{user_id}/{question_id}` | Delete a specific question |
 
-### User Management
+### User Management (Currently Disabled)
+These endpoints are currently commented out in testing mode:
 | Method | Endpoint | Description |
 |--------|----------|-------------|
 | POST | `/users/sync` | Create/update user profile |
@@ -232,13 +233,13 @@ const firebaseConfig = {
 
 ---
 
-## 🚀 Deployment
+## Deployment
 
 ### Backend Deployment (Render)
 
 1. Push code to GitHub
-2. Create new Web Service on Render
-3. Connect GitHub repository
+2. Create a new Web Service on Render
+3. Connect your GitHub repository
 4. Set build command: `pip install -r requirements.txt`
 5. Set start command: `uvicorn main:app --host 0.0.0.0 --port 10000`
 6. Add environment variables
@@ -249,75 +250,76 @@ Backend URL: `https://codeprep2-0-1.onrender.com`
 ### Frontend Deployment (Vercel)
 
 1. Push code to GitHub
-2. Import project on Vercel
+2. Import your project on Vercel
 3. Set build command: `npm run build`
 4. Set output directory: `dist`
-5. Add environment variables (API base URL)
+5. Add environment variables (like your API base URL)
 6. Deploy
 
 ---
 
-## 🔐 Security
+## Security
 
-- ✅ Firebase authentication for secure user login
-- ✅ Password hashing with PBKDF2-SHA256 (120k iterations)
-- ✅ CORS enabled for authorized origins
-- ✅ Sensitive data ignored in `.gitignore`
-- ✅ Environment variables for API keys
-- ✅ SQLite database with indexed queries
+When authentication is re-enabled, the app includes:
+
+- Firebase authentication for secure login
+- Password hashing with PBKDF2-SHA256 (120,000 iterations)
+- CORS enabled for authorized origins only
+- Sensitive data excluded via .gitignore
+- Environment variables for all API keys
+- SQLite database with indexed queries for performance
 
 ---
 
-## 📖 Usage
+## How to Use the App
 
 ### Starting an Interview
 
-1. **Dashboard**: Select a DSA topic or search for a question
-2. **Interview Space**: 
-   - Click **Start Call** to begin
-   - Click microphone to toggle mute/unmute
-   - Write code in the editor
-   - Submit code for AI feedback
-   - Click **End Call** when done
+1. Go to the Dashboard and pick a DSA topic or search for a question
+2. Once you're in Interview Space:
+   - Click Start Call to begin talking to the AI
+   - Use the microphone button to toggle mute/unmute
+   - Write your code solution in the editor
+   - Submit your code to get feedback
+   - Click End Call when you're done
 
-### Managing Profile
+### Managing Your Profile
 
-1. Navigate to **Profile**
-2. Update username, bio, social links
-3. Click **Random Pic** for auto-generated avatar
-4. Save changes
+1. Go to your Profile page
+2. Update your username, bio, and social links
+3. Click "Random Pic" if you want an auto-generated avatar
+4. Save your changes
 
-### Viewing History
+### Looking at Your Interview History
 
-1. Click **History** in navbar
-2. See all practice questions
-3. Delete individual questions
-4. Track your interview progress
+1. Click History in the navigation bar
+2. See all the problems you've practiced
+3. Delete individual questions if you want to clean up
+4. Track your progress over time
 
 ---
 
-## 🛠️ Development
+## Development
 
 ### Build for Production
 
-**Frontend:**
+Frontend:
 ```bash
 cd App
 npm run build
 npm run preview
 ```
 
-**Backend:**
+Backend:
 ```bash
-# Backend uses same uvicorn command
 uvicorn main:app --host 0.0.0.0 --port 8000
 ```
 
 ### Running Tests
 
-Tests can be added using:
-- **Frontend**: Vitest or Jest
-- **Backend**: pytest
+You can add tests using:
+- Frontend: Vitest or Jest
+- Backend: pytest
 
 Example:
 ```bash
@@ -326,28 +328,28 @@ pytest Backend/
 
 ### Linting & Formatting
 
-**Frontend:**
+Frontend:
 ```bash
 npm run lint
 ```
 
 ---
 
-## 🐛 Troubleshooting
+## Troubleshooting
 
 ### "Call object is not available" Error
-- Check Vapi AI credentials in `InterviewSpace.jsx`
-- Ensure assistant ID is valid in Vapi dashboard
-- Verify API key is active
+- Check your Vapi AI credentials in InterviewSpace.jsx
+- Make sure your assistant ID is correct in the Vapi dashboard
+- Verify that your API key is active
 
 ### "Failed to update profile" Error
-- Check browser console (F12 → Console tab)
-- Ensure backend is running
-- Verify user is synced to database
+- Open your browser console (F12 and go to the Console tab)
+- Make sure the backend is running
+- Check that your user was synced to the database
 
 ### CORS Issues
-- Check backend CORS configuration in `main.py`
-- Ensure frontend URL is in `allow_origins`
+- Check the CORS configuration in main.py
+- Make sure your frontend URL is in the allow_origins list
 - Verify production backend URL in `lib/utils.js`
 
 ### Database Errors
