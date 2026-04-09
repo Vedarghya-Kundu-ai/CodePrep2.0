@@ -56,24 +56,26 @@ function Dashboard(){
     }, [activeTopicIndex]);
 
     async function handleGenerate(selectedQuestion, questionId) {
-        if(!currentUser){
-            navigate("/Login");
-            return;
-        } else {
-            setGeneratingQuestionId(questionId);
-            try {
-                await axios.post(`${API_BASE_URL}/add_question`, {
-                    user: currentUser.uid,
-                    question: selectedQuestion,
-                });
-            } catch (error) {
-                console.log("couldn't add question`")
-                console.log(error)
-            } finally {
-                setGeneratingQuestionId(null);
-            }
-            navigate("/interviewSpace", { state: { question: selectedQuestion } });
+        // AUTHLESS: Skip login check
+        // if(!currentUser){
+        //     navigate("/Login");
+        //     return;
+        // } else {
+        setGeneratingQuestionId(questionId);
+        try {
+            // AUTHLESS: Use generic user ID for all questions
+            await axios.post(`${API_BASE_URL}/add_question`, {
+                user: "authless-user-001",
+                question: selectedQuestion,
+            });
+        } catch (error) {
+            console.log("couldn't add question`")
+            console.log(error)
+        } finally {
+            setGeneratingQuestionId(null);
         }
+        navigate("/interviewSpace", { state: { question: selectedQuestion } });
+        // }
     }
 
     return (

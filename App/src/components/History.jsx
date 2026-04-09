@@ -51,20 +51,22 @@ function createInterviewReview(questionText) {
 function History() {
   const [questions, setQuestions] = useState([]);
   const [expandedReviewId, setExpandedReviewId] = useState(null);
+  // AUTHLESS: currentUser is now always available
   const { currentUser } = useAuth();
-  const userId = currentUser?.uid;
+  // AUTHLESS: Use static authless user ID
+  const userId = "authless-user-001";
   const navigate = useNavigate();
   const headingRef = useRef(null);
   const listRef = useRef(null);
 
   useEffect(() => {
-    if (currentUser) {
-      axios.get(`${API_BASE_URL}/questions/${userId}`)
-        .then(res => {
-          setQuestions(res.data);
-        });
-    }
-  }, [currentUser]);
+    // AUTHLESS: Always load questions for authless user
+    axios.get(`${API_BASE_URL}/questions/${userId}`)
+      .then(res => {
+        setQuestions(res.data);
+      })
+      .catch(err => console.log("Failed to load questions", err));
+  }, []);
 
   // Added: GSAP page intro animation for history title and cards.
   useEffect(() => {
@@ -82,7 +84,8 @@ function History() {
 
   async function handleDelete(id) {
     try {
-      await axios.delete(`${API_BASE_URL}/questions/${currentUser.uid}/${id}`);
+      // AUTHLESS: Use static authless user ID
+      await axios.delete(`${API_BASE_URL}/questions/authless-user-001/${id}`);
       setQuestions((prev) => prev.filter(q => q.id !== id));
     } catch (error) {
       console.log("couldn't delete question", error);

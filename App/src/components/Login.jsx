@@ -1,50 +1,27 @@
 import React, { useState } from "react";
-import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
+// AUTHLESS: Commented out Firebase auth imports
+// import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { Navigate, Link } from "react-router-dom";
 
 function Login() {
+  // AUTHLESS: User is always logged in
   const { userLoggedIn } = useAuth();
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSigningIn, setIsSigningIn] = useState(false);
-  const [error, setError] = useState("");
+  // AUTHLESS: Commented out form state
+  // const [email, setEmail] = useState("");
+  // const [password, setPassword] = useState("");
+  // const [isSigningIn, setIsSigningIn] = useState(false);
+  // const [error, setError] = useState("");
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithEmailAndPassword(email, password);
-      } catch {
-        setError("Invalid credentials, please try again.");
-        setIsSigningIn(false);
-      }
-    }
+    // AUTHLESS: Auth skipped
   };
 
   const onGoogleSignIn = async (e) => {
     e.preventDefault();
-    if (!isSigningIn) {
-      setIsSigningIn(true);
-      try {
-        await doSignInWithGoogle();
-      } catch (error) {
-        console.error("Google sign-in error:", error);
-        const code = error?.code || "";
-        if (code === "auth/popup-closed-by-user") {
-          setError("Google sign-in popup was closed before completing.");
-        } else if (code === "auth/popup-blocked") {
-          setError("Popup blocked by browser. Please allow popups and retry.");
-        } else if (code === "auth/unauthorized-domain") {
-          setError("Current domain is not authorized in Firebase settings.");
-        } else {
-          setError("Google sign-in failed.");
-        }
-        setIsSigningIn(false);
-      }
-    }
+    // AUTHLESS: Auth skipped
   };
 
   return (

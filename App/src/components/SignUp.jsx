@@ -1,18 +1,16 @@
 import React, { useEffect, useRef, useState } from "react";
-import {
-  doCreateUserWithEmailAndPassword,
-  doSignInWithGoogle,
-} from "../firebase/auth";
+// AUTHLESS: Commented out Firebase auth imports
+// import {
+//   doCreateUserWithEmailAndPassword,
+//   doSignInWithGoogle,
+// } from "../firebase/auth";
 import { useNavigate, Link } from "react-router-dom";
 import { gsap } from "gsap";
 import axios from "axios";
 import { API_BASE_URL } from "../lib/utils";
 
 function SignUp() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [isSignedUp, setIsSignedUp] = useState(false);
-  const [error, setError] = useState("");
+  // AUTHLESS: Simplified signup form
   const navigate = useNavigate();
   const cardRef = useRef(null);
 
@@ -26,63 +24,19 @@ function SignUp() {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      const result = await doCreateUserWithEmailAndPassword(email, password);
-      // Updated: account creation should proceed even if sync fails once.
-      try {
-        await axios.post(`${API_BASE_URL}/users/sync`, {
-          user_id: result.user.uid,
-          email: result.user.email || email,
-          password,
-          auth_provider: "password",
-        });
-      } catch (syncError) {
-        console.error("Profile sync failed after sign-up:", syncError);
-      }
-      setIsSignedUp(true);
-      navigate("/Login");
-    } catch {
-      setError("Sign up failed. Try again.");
-    }
+    // AUTHLESS: Skip auth and go directly to dashboard
+    navigate("/Dashboard");
   };
 
   const handleGoogleSignIn = async () => {
-    try {
-      const result = await doSignInWithGoogle();
-      // Updated: allow Google account creation even if backend sync has transient issue.
-      try {
-        await axios.post(`${API_BASE_URL}/users/sync`, {
-          user_id: result.user.uid,
-          email: result.user.email || "",
-          auth_provider: "google",
-        });
-      } catch (syncError) {
-        console.error("Profile sync failed after Google sign-up:", syncError);
-      }
-      setIsSignedUp(true);
-      navigate("/Dashboard");
-    } catch (error) {
-      console.error("Google sign-up error:", error);
-      const code = error?.code || "";
-      if (code === "auth/popup-closed-by-user") {
-        setError("Google sign-in popup was closed before completing.");
-      } else if (code === "auth/popup-blocked") {
-        setError("Popup blocked by browser. Please allow popups and retry.");
-      } else if (code === "auth/unauthorized-domain") {
-        setError("Current domain is not authorized in Firebase settings.");
-      } else {
-        setError("Google sign up failed.");
-      }
-    }
+    // AUTHLESS: Skip auth and go directly to dashboard
+    navigate("/Dashboard");
   };
 
   return (
     <div className="page-shell flex min-h-[calc(100vh-7rem)] items-center justify-center px-4 py-8 sm:px-6">
-      {isSignedUp ? null : (
-        <div ref={cardRef} className="glass-card glow-hover w-full max-w-md rounded-2xl p-6 shadow-xl sm:p-8">
-          <h1 className="retro-title mb-6 text-center text-4xl text-rose-100 sm:text-5xl">
+      <div ref={cardRef} className="glass-card glow-hover w-full max-w-md rounded-2xl p-6 shadow-xl sm:p-8">
+        <h1 className="retro-title mb-6 text-center text-4xl text-rose-100 sm:text-5xl">
             Create a new account
           </h1>
 

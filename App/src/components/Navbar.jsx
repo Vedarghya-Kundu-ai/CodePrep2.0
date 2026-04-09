@@ -1,6 +1,7 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext";
-import { doSignOut } from "../firebase/auth";
+// AUTHLESS: Commented out Firebase sign out import
+// import { doSignOut } from "../firebase/auth";
 
 function Navbar() {
   const { currentUser, userProfile } = useAuth();
@@ -9,8 +10,9 @@ function Navbar() {
   const handleSignOut = async () => {
     if(confirm("Are you sure you want to sign out?")) {
       try {
-        await doSignOut();
-        navigate("/login");
+        // AUTHLESS: Firebase sign out disabled
+        // await doSignOut();
+        navigate("/Dashboard");
       } catch (error) {
         console.error("Error signing out:", error);
       }

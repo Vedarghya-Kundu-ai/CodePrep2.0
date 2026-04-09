@@ -131,7 +131,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    flex-grow: inherit;
+    flex-grow: 1;
 }
 .transcription-sententence {
   font-family: "Space Mono", ui-monospace, monospace;

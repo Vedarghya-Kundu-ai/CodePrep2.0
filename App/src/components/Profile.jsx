@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
-import { Navigate } from "react-router-dom";
+// AUTHLESS: Removed Navigate import (always accessible)
 import axios from "axios";
 
 import { useAuth } from "../contexts/authContext";
-import { doDeleteCurrentUser } from "../firebase/auth";
+// AUTHLESS: Commented out Firebase auth import
+// import { doDeleteCurrentUser } from "../firebase/auth";
 import { API_BASE_URL } from "../lib/utils";
 
 function Profile() {
+  // AUTHLESS: currentUser and userLoggedIn are always available
   const { currentUser, userLoggedIn, userProfile, refreshUserProfile } = useAuth();
   const [form, setForm] = useState({
     username: "",
@@ -40,85 +42,84 @@ function Profile() {
 
   const handleSave = async (event) => {
     event.preventDefault();
-    if (!currentUser?.uid) {
-      return;
-    }
-
-    try {
-      setIsSaving(true);
-      setStatus("");
-      // Updated: persist profile through FastAPI directly.
-      await axios.put(`${API_BASE_URL}/users/${currentUser.uid}/profile`, form);
-      await refreshUserProfile();
-      setStatus("Profile updated successfully.");
-    } catch {
-      setStatus("Failed to update profile. Please try again.");
-    } finally {
-      setIsSaving(false);
-    }
+    // AUTHLESS: Save disabled (no user profile backend)
+    // if (!currentUser?.uid) {
+    //   return;
+    // }
+    // try {
+    //   setIsSaving(true);
+    //   setStatus("");
+    //   await axios.put(`${API_BASE_URL}/users/${currentUser.uid}/profile`, form);
+    //   await refreshUserProfile();
+    //   setStatus("Profile updated successfully.");
+    // } catch {
+    //   setStatus("Failed to update profile. Please try again.");
+    // } finally {
+    //   setIsSaving(false);
+    // }
+    setStatus("Profile persistence disabled in authless mode.");
   };
 
   // Added: random profile visual update is now generated and persisted by backend.
   const handleRandomizeProfile = async () => {
-    if (!currentUser?.uid) {
-      return;
-    }
-
-    try {
-      setIsRandomizing(true);
-      setStatus("");
-      // Updated: backend generates username/avatar to keep data source in Python backend.
-      const response = await axios.post(`${API_BASE_URL}/users/${currentUser.uid}/randomize`);
-      const updated = response.data;
-      setForm((prev) => ({
-        ...prev,
-        username: updated.username || prev.username,
-        profile_pic: updated.profile_pic || prev.profile_pic,
-      }));
-      await refreshUserProfile();
-      setStatus("Random profile style applied.");
-    } catch {
-      setStatus("Failed to randomize profile. Please try again.");
-    } finally {
-      setIsRandomizing(false);
-    }
+    // AUTHLESS: Randomize disabled (no user profile backend)
+    // if (!currentUser?.uid) {
+    //   return;
+    // }
+    // try {
+    //   setIsRandomizing(true);
+    //   setStatus("");
+    //   const response = await axios.post(`${API_BASE_URL}/users/${currentUser.uid}/randomize`);
+    //   const updated = response.data;
+    //   setForm((prev) => ({
+    //     ...prev,
+    //     username: updated.username || prev.username,
+    //     profile_pic: updated.profile_pic || prev.profile_pic,
+    //   }));
+    //   await refreshUserProfile();
+    //   setStatus("Random profile style applied.");
+    // } catch {
+    //   setStatus("Failed to randomize profile. Please try again.");
+    // } finally {
+    //   setIsRandomizing(false);
+    // }
+    setStatus("Profile randomization disabled in authless mode.");
   };
 
   // Added: permanent delete flow for Firebase auth + backend data with confirmation.
   const handleDeleteAccount = async () => {
-    if (!currentUser?.uid) {
-      return;
-    }
-
-    const confirmed = window.confirm(
-      "This will permanently delete your account, profile, and question history. This action cannot be undone. Continue?",
-    );
-    if (!confirmed) {
-      return;
-    }
-
-    const userId = currentUser.uid;
-
-    try {
-      setIsDeleting(true);
-      setStatus("");
-      await doDeleteCurrentUser();
-      // Updated: delete all backend records for this user after Firebase deletion.
-      await axios.delete(`${API_BASE_URL}/users/${userId}/full-delete`);
-    } catch (error) {
-      if (error?.code === "auth/requires-recent-login") {
-        setStatus("Please log in again, then retry account deletion.");
-      } else {
-        setStatus("Account deletion failed. Please try again.");
-      }
-    } finally {
-      setIsDeleting(false);
-    }
+    // AUTHLESS: Delete disabled (no user profile backend)
+    // if (!currentUser?.uid) {
+    //   return;
+    // }
+    // const confirmed = window.confirm(
+    //   "This will permanently delete your account, profile, and question history. This action cannot be undone. Continue?",
+    // );
+    // if (!confirmed) {
+    //   return;
+    // }
+    // const userId = currentUser.uid;
+    // try {
+    //   setIsDeleting(true);
+    //   setStatus("");
+    //   await doDeleteCurrentUser();
+    //   await axios.delete(`${API_BASE_URL}/users/${userId}/full-delete`);
+    // } catch (error) {
+    //   if (error?.code === "auth/requires-recent-login") {
+    //     setStatus("Please log in again, then retry account deletion.");
+    //   } else {
+    //     setStatus("Account deletion failed. Please try again.");
+    //   }
+    // } finally {
+    //   setIsDeleting(false);
+    // }
+    setStatus("Account deletion disabled in authless mode.");
   };
 
-  if (!userLoggedIn) {
-    return <Navigate to="/Login" />;
-  }
+  // AUTHLESS: Profile is always accessible
+  // if (!userLoggedIn) {
+  //   return <Navigate to="/Login" />;
+  // }
 
   return (
     <div className="page-shell mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
