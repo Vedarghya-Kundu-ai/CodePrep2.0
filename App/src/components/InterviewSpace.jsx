@@ -1,4 +1,3 @@
-import '../css/InterviewSpace.css';
 import Editor from '@monaco-editor/react';
 import micIcon from '../assets/microphone.png';
 import waveimg from '../assets/message.png';
@@ -167,24 +166,23 @@ function InterviewSpace() {
     };
 
     return(
-        <div ref={panelRootRef} className="page-shell mx-auto flex w-full max-w-7xl flex-col px-4 pb-8 sm:px-6">
+        <div ref={panelRootRef} className="mx-auto flex w-full max-w-7xl flex-col px-4 pb-8 sm:px-6">
             <div className="mb-6 mt-3 grid min-h-[68vh] grid-cols-1 gap-5 lg:grid-cols-[minmax(260px,1fr)_minmax(0,2fr)]">
                 <div className="order-1 flex h-full flex-col gap-4">
-                    <div data-interview-panel="true" className={`glass-card glow-hover flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl p-6 sm:p-8 ${assistantSpeaking ? "ai-speaking" : "" }`}>
+                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm sm:p-8 ${assistantSpeaking ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200" }`}>
                         <div className="flex justify-center items-center">
                             <img src={waveimg} className="object-contain w-[120px]" alt="animated-gif" />
                         </div>
-                        <h2 className='retro-title mb-3 text-4xl text-rose-100'>AI Interviewer</h2>
+                        <h2 className='mb-3 text-4xl font-semibold tracking-tight text-slate-950'>AI Interviewer</h2>
                     </div>
 
-                    <div data-interview-panel="true" className={`glass-card glow-hover flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl p-6 sm:p-8 ${userSpeaking ? "user-speaking" : "" } `}>
+                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm sm:p-8 ${userSpeaking ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200" } `}>
                         <img
                              src={micActive ? micIcon : mutedMicIcon }
                             alt="Mic"
                             className="w-24 cursor-pointer object-contain transition-transform duration-300 hover:-translate-y-1 hover:scale-105 active:scale-105 sm:w-[120px]"
                             onClick={handleMicClick}
                         />
-                        {/* Updated: button colors aligned with the rose/plum app theme. */}
                         { interviewActive ? (
                             <button
                                 className="mt-2 cursor-pointer rounded-xl border border-red-200/25 bg-red-500/80 px-4 py-2 font-medium text-red-50 transition-transform duration-200 hover:-translate-y-0.5 hover:bg-red-500 active:scale-95"
@@ -194,7 +192,7 @@ function InterviewSpace() {
                             </button>
                         ) : (
                             <button
-                                className="warm-button mt-2 cursor-pointer rounded-xl border border-rose-100/25 px-4 py-2 font-medium text-rose-50 transition-transform duration-200 hover:-translate-y-0.5 active:scale-95"
+                                className="mt-2 cursor-pointer rounded-xl bg-indigo-600 px-4 py-2 font-medium text-white transition hover:bg-indigo-700 active:scale-95"
                                 onClick={startCall}
                             >
                                 Start Call
@@ -202,16 +200,16 @@ function InterviewSpace() {
                         )}
                     </div>
                 </div>
-                <div data-interview-panel="true" className="order-2 glass-card flex h-full min-h-[60vh] flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl p-3 sm:p-4">
+                <div data-interview-panel="true" className="order-2 flex h-full min-h-[60vh] flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
                     <div className="mt-2 flex w-full flex-wrap items-center justify-between gap-3 px-2">
-                        <h2 className='retro-title text-4xl text-rose-100 sm:text-5xl'>Code Editor</h2>
+                        <h2 className='text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl'>Code Editor</h2>
                         <div className="flex items-center gap-2">
-                            <label htmlFor="language" className="text-sm text-slate-300">Language</label>
+                            <label htmlFor="language" className="text-sm text-slate-600">Language</label>
                             <select
                                 id="language"
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value)}
-                                className="rounded border border-white/15 bg-slate-900/85 px-2 py-1 text-sm text-slate-200 focus:outline-none focus:ring-1 focus:ring-rose-300"
+                                className="rounded border border-slate-300 bg-white px-2 py-1 text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
                             >
                                 <option value="python">Python</option>
                                 <option value="javascript">JavaScript</option>
@@ -232,14 +230,14 @@ function InterviewSpace() {
                     />
                     <button
                     onClick={handleSubmit}
-                    className="warm-button mb-1 inline-flex min-w-[132px] cursor-pointer items-center justify-center rounded-lg border border-rose-100/25 px-5 py-2 font-semibold text-sm active:scale-95"
+                    className="mb-1 inline-flex min-w-[132px] cursor-pointer items-center justify-center rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 active:scale-95"
                     >
                     Submit
                     </button>
                 </div>
             </div>
-            <div data-interview-panel="true" className='display-transcript glass-card mx-auto w-full rounded-xl px-4 py-3 sm:px-6'>
-                <p className='transcription-sententence'>{Transcription}</p>
+            <div data-interview-panel="true" className='mx-auto flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6'>
+                <p className='text-center font-mono text-sm text-slate-700'>{Transcription}</p>
             </div>
         </div>
     )

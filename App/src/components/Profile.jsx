@@ -122,9 +122,9 @@ function Profile() {
   // }
 
   return (
-    <div className="page-shell mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
-      <div className="section-pop stagger-1 glass-card rounded-2xl p-5 sm:p-7">
-        <h1 className="retro-title mb-6 text-center text-4xl text-rose-100 sm:text-5xl">Edit Profile</h1>
+    <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
+        <h1 className="mb-6 text-center text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">Edit Profile</h1>
 
         <form onSubmit={handleSave} className="space-y-5">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -132,17 +132,17 @@ function Profile() {
               <img
                 src={form.profile_pic || "https://api.dicebear.com/9.x/thumbs/svg?seed=default-profile"}
                 alt="Profile"
-                className="h-20 w-20 rounded-full border border-white/20 bg-slate-900/70 object-cover"
+                className="h-20 w-20 rounded-full border border-slate-200 bg-slate-100 object-cover"
               />
               <div>
-                <p className="text-sm text-slate-200">{currentUser?.email || userProfile?.email || ""}</p>
-                <p className="text-xs text-slate-400">{userProfile?.auth_provider || "unknown"}</p>
+                <p className="text-sm text-slate-700">{currentUser?.email || userProfile?.email || ""}</p>
+                <p className="text-xs text-slate-500">{userProfile?.auth_provider || "unknown"}</p>
               </div>
             </div>
             <button
               type="button"
               disabled={isRandomizing || isSaving || isDeleting}
-              className="warm-button cursor-pointer rounded-lg border border-rose-100/25 px-4 py-2 text-sm font-semibold"
+              className="cursor-pointer rounded-lg bg-indigo-600 px-4 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:bg-slate-300"
               onClick={handleRandomizeProfile}
             >
               {isRandomizing ? "Randomizing..." : "Random Pic"}
@@ -150,72 +150,72 @@ function Profile() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <label className="space-y-1 text-sm text-slate-300">
+            <label className="space-y-1 text-sm text-slate-700">
               <span>Username</span>
               <input
                 value={form.username}
                 onChange={(e) => updateField("username", e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
                 required
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-300">
+            <label className="space-y-1 text-sm text-slate-700">
               <span>Profile Pic URL</span>
               <input
                 value={form.profile_pic}
                 onChange={(e) => updateField("profile_pic", e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
                 placeholder="https://..."
               />
             </label>
           </div>
 
-          <label className="block space-y-1 text-sm text-slate-300">
+          <label className="block space-y-1 text-sm text-slate-700">
             <span>Bio</span>
             <textarea
               value={form.bio}
               onChange={(e) => updateField("bio", e.target.value)}
-              className="min-h-24 w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+              className="min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
               placeholder="Write a short bio"
             />
           </label>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <label className="space-y-1 text-sm text-slate-300">
+            <label className="space-y-1 text-sm text-slate-700">
               <span>LinkedIn</span>
               <input
                 value={form.linkedin}
                 onChange={(e) => updateField("linkedin", e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
                 placeholder="linkedin.com/in/..."
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-300">
+            <label className="space-y-1 text-sm text-slate-700">
               <span>GitHub</span>
               <input
                 value={form.github}
                 onChange={(e) => updateField("github", e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
                 placeholder="github.com/..."
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-300">
+            <label className="space-y-1 text-sm text-slate-700">
               <span>X</span>
               <input
                 value={form.x_handle}
                 onChange={(e) => updateField("x_handle", e.target.value)}
-                className="w-full rounded-lg border border-white/15 bg-slate-950/60 px-3 py-2 text-slate-100 focus:border-rose-300 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
                 placeholder="x.com/..."
               />
             </label>
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-300">{status}</p>
+            <p className="text-sm text-slate-600">{status}</p>
             <button
               type="submit"
               disabled={isSaving || isDeleting}
-              className="warm-button cursor-pointer rounded-lg border border-rose-100/25 px-5 py-2 text-sm font-semibold disabled:opacity-60"
+              className="cursor-pointer rounded-lg bg-indigo-600 px-5 py-2 text-sm font-semibold text-white transition hover:bg-indigo-700 disabled:bg-slate-300 disabled:opacity-60"
             >
               {isSaving ? "Saving..." : "Save Profile"}
             </button>

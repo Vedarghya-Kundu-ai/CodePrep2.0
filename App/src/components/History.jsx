@@ -101,38 +101,38 @@ function History() {
   }
 
   return (
-    <div className="page-shell px-4 py-8 text-white sm:px-6">
+    <div className="px-4 py-8 text-slate-900 sm:px-6">
       <div className="mx-auto max-w-4xl">
-        <h1 ref={headingRef} className="retro-title neon-text mb-8 text-center text-5xl text-rose-100 sm:text-6xl">History</h1>
+        <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 sm:text-6xl">History</h1>
 
         {questions.length === 0 ? (
-          <p className="glass-card mx-auto max-w-xl rounded-xl px-6 py-5 text-center text-slate-300">No history found.</p>
+          <p className="mx-auto max-w-xl rounded-xl border border-slate-200 bg-white px-6 py-5 text-center text-slate-600 shadow-sm">No history found.</p>
         ) : (
           <ul ref={listRef} className="space-y-4">
             {questions.map((q) => (
               <li
                 key={q.id}
                 data-history-row="true"
-                className="glass-card glow-hover rounded-xl p-4"
+                className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <span className="text-sm text-slate-100 sm:text-base">{q.question}</span>
+                  <span className="text-sm text-slate-800 sm:text-base">{q.question}</span>
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => handleReattempt(q.question)}
-                      className="warm-button cursor-pointer rounded-md border border-rose-100/25 px-3 py-2 text-xs font-semibold sm:text-sm"
+                      className="cursor-pointer rounded-md bg-indigo-600 px-3 py-2 text-xs font-semibold text-white transition hover:bg-indigo-700 sm:text-sm"
                     >
                       Re-attempt
                     </button>
                     <button
                       onClick={() => toggleReview(q.id)}
-                      className="cursor-pointer rounded-md border border-white/20 bg-slate-900/70 px-3 py-2 text-xs font-medium text-rose-100 transition hover:-translate-y-0.5 hover:border-rose-300/45 sm:text-sm"
+                      className="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:border-indigo-400 hover:text-indigo-700 sm:text-sm"
                     >
                       {expandedReviewId === q.id ? "Hide Review" : "View Review"}
                     </button>
                     <button
                       onClick={() => handleDelete(q.id)}
-                      className="cursor-pointer rounded-md border border-red-200/20 bg-red-500/80 px-3 py-2 text-xs font-medium text-red-50 transition hover:-translate-y-0.5 hover:bg-red-500 sm:text-sm"
+                      className="cursor-pointer rounded-md border border-red-200 bg-red-50 px-3 py-2 text-xs font-medium text-red-700 transition hover:bg-red-100 sm:text-sm"
                     >
                       Remove
                     </button>
@@ -140,32 +140,32 @@ function History() {
                 </div>
 
                 {expandedReviewId === q.id && (
-                  <div className="mt-4 rounded-lg border border-white/15 bg-slate-950/45 p-4">
+                  <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
                     {(() => {
                       const review = createInterviewReview(q.question);
                       return (
                         <>
                           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
-                            <span className="rounded-full border border-rose-300/35 bg-rose-400/10 px-2 py-1 text-rose-100">Overall: {review.overall}/10</span>
-                            <span className="rounded-full border border-slate-200/20 bg-slate-800/70 px-2 py-1 text-slate-200">Communication: {review.communication}/10</span>
-                            <span className="rounded-full border border-slate-200/20 bg-slate-800/70 px-2 py-1 text-slate-200">Coding: {review.codingAbility}/10</span>
-                            <span className="rounded-full border border-slate-200/20 bg-slate-800/70 px-2 py-1 text-slate-200">Problem Solving: {review.problemSolving}/10</span>
-                            <span className="rounded-full border border-slate-200/20 bg-slate-800/70 px-2 py-1 text-slate-200">Optimization: {review.optimization}/10</span>
+                            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-1 text-indigo-700">Overall: {review.overall}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Communication: {review.communication}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Coding: {review.codingAbility}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Problem Solving: {review.problemSolving}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Optimization: {review.optimization}/10</span>
                           </div>
 
                           <p className="mb-2 text-xs text-slate-400 sm:text-sm">
                             Review is estimated from the saved interview prompt and current activity signals.
                           </p>
 
-                          <p className="text-xs font-semibold uppercase tracking-wide text-rose-200 sm:text-sm">Strengths</p>
-                          <ul className="mb-3 mt-1 list-disc space-y-1 pl-5 text-xs text-slate-200 sm:text-sm">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 sm:text-sm">Strengths</p>
+                          <ul className="mb-3 mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 sm:text-sm">
                             {review.strengths.map((item) => (
                               <li key={item}>{item}</li>
                             ))}
                           </ul>
 
-                          <p className="text-xs font-semibold uppercase tracking-wide text-rose-200 sm:text-sm">Next Attempt Focus</p>
-                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-slate-200 sm:text-sm">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 sm:text-sm">Next Attempt Focus</p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 sm:text-sm">
                             {review.nextSteps.map((item) => (
                               <li key={item}>{item}</li>
                             ))}

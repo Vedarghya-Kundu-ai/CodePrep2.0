@@ -480,7 +480,7 @@ const DIFFICULTY_BY_QUESTION = {
   "K-th largest element in an unsorted array": "Medium",
   "Flood-fill Algorithm": "Medium",
   "Clone Graph": "Medium",
-  DFS: "Medium",
+  "DFS": "Medium",
   "Traversal Techniques": "Medium",
   "Detect cycle in Undirected Graph (BFS)": "Hard",
   "Detect cycle in Undirected Graph (DFS)": "Hard",

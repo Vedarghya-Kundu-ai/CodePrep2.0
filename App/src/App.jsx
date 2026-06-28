@@ -13,14 +13,14 @@ function App() {
     <AuthProvider>
       <Router>
         <Navbar />
-        <div className="app-bg relative min-h-screen overflow-hidden pt-24 sm:pt-28">
-          <div className="ambient-layer" aria-hidden="true">
-            <span className="ambient-orb ambient-orb-one" />
-            <span className="ambient-orb ambient-orb-two" />
-            <span className="ambient-orb ambient-orb-three" />
+        <div className="relative min-h-screen bg-slate-50 pt-24 text-slate-900 sm:pt-28">
+          <div className="hidden" aria-hidden="true">
+            <span />
+            <span />
+            <span />
           </div>
 
-          <div className="app-content relative z-10">
+          <div className="relative z-10">
             <Routes>
               <Route path="/" element={< Dashboard/>} />
               <Route path="/SignUp" element={< SignUp/>} />
