@@ -191,7 +191,7 @@ function Dashboard() {
                             type="button"
                         >
                             {generatingQuestionId
-                                ? "Generating..."
+                                ? "Please wait..."
                                 : "Generate Interview"}
                         </button>
                     </div>

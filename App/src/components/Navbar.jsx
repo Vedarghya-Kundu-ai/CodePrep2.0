@@ -8,7 +8,7 @@ function Navbar() {
   const navigate = useNavigate();
 
   const handleSignOut = async () => {
-    if(confirm("Are you sure you want to sign out?")) {
+    if(confirm("Sign in and Sign out disabled for test purposes")) {
       try {
         // AUTHLESS: Firebase sign out disabled
         // await doSignOut();
