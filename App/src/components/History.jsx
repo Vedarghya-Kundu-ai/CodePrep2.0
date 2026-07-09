@@ -1,7 +1,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useAuth } from "../contexts/authContext";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Navigate, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { API_BASE_URL } from "../lib/utils";
 
@@ -51,22 +51,24 @@ function createInterviewReview(questionText) {
 function History() {
   const [questions, setQuestions] = useState([]);
   const [expandedReviewId, setExpandedReviewId] = useState(null);
-  // AUTHLESS: currentUser is now always available
-  const { currentUser } = useAuth();
-  // AUTHLESS: Use static authless user ID
-  const userId = "authless-user-001";
+  const { currentUser, userLoggedIn } = useAuth();
+  const userId = currentUser?.uid;
   const navigate = useNavigate();
   const headingRef = useRef(null);
   const listRef = useRef(null);
 
   useEffect(() => {
-    // AUTHLESS: Always load questions for authless user
+    if (!userId) {
+      setQuestions([]);
+      return;
+    }
+
     axios.get(`${API_BASE_URL}/questions/${userId}`)
       .then(res => {
         setQuestions(res.data);
       })
       .catch(err => console.log("Failed to load questions", err));
-  }, []);
+  }, [userId]);
 
   // Added: GSAP page intro animation for history title and cards.
   useEffect(() => {
@@ -84,8 +86,7 @@ function History() {
 
   async function handleDelete(id) {
     try {
-      // AUTHLESS: Use static authless user ID
-      await axios.delete(`${API_BASE_URL}/questions/authless-user-001/${id}`);
+      await axios.delete(`${API_BASE_URL}/questions/${userId}/${id}`);
       setQuestions((prev) => prev.filter(q => q.id !== id));
     } catch (error) {
       console.log("couldn't delete question", error);
@@ -100,23 +101,27 @@ function History() {
     setExpandedReviewId((prev) => (prev === id ? null : id));
   }
 
+  if (!userLoggedIn) {
+    return <Navigate to="/Login" />;
+  }
+
   return (
-    <div className="px-4 py-8 text-slate-900 sm:px-6">
+    <div className="px-4 py-8 text-slate-900 dark:text-slate-100 sm:px-6">
       <div className="mx-auto max-w-4xl">
-        <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 sm:text-6xl">History</h1>
+        <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-6xl">History</h1>
 
         {questions.length === 0 ? (
-          <p className="mx-auto max-w-xl rounded-xl border border-slate-200 bg-white px-6 py-5 text-center text-slate-600 shadow-sm">No history found.</p>
+          <p className="mx-auto max-w-xl rounded-xl border border-slate-200 bg-white px-6 py-5 text-center text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">No history found.</p>
         ) : (
           <ul ref={listRef} className="space-y-4">
             {questions.map((q) => (
               <li
                 key={q.id}
                 data-history-row="true"
-                className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm"
+                className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900"
               >
                 <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
-                  <span className="text-sm text-slate-800 sm:text-base">{q.question}</span>
+                  <span className="text-sm text-slate-800 dark:text-slate-100 sm:text-base">{q.question}</span>
                   <div className="flex flex-wrap items-center gap-2">
                     <button
                       onClick={() => handleReattempt(q.question)}
@@ -126,7 +131,7 @@ function History() {
                     </button>
                     <button
                       onClick={() => toggleReview(q.id)}
-                      className="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:border-indigo-400 hover:text-indigo-700 sm:text-sm"
+                      className="cursor-pointer rounded-md border border-slate-300 bg-white px-3 py-2 text-xs font-medium text-slate-700 transition hover:border-indigo-400 hover:text-indigo-700 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-200 dark:hover:border-indigo-400 dark:hover:text-indigo-300 sm:text-sm"
                     >
                       {expandedReviewId === q.id ? "Hide Review" : "View Review"}
                     </button>
@@ -140,32 +145,32 @@ function History() {
                 </div>
 
                 {expandedReviewId === q.id && (
-                  <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4">
+                  <div className="mt-4 rounded-lg border border-slate-200 bg-slate-50 p-4 dark:border-slate-800 dark:bg-slate-950">
                     {(() => {
                       const review = createInterviewReview(q.question);
                       return (
                         <>
                           <div className="mb-3 flex flex-wrap items-center gap-2 text-xs sm:text-sm">
-                            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-1 text-indigo-700">Overall: {review.overall}/10</span>
-                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Communication: {review.communication}/10</span>
-                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Coding: {review.codingAbility}/10</span>
-                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Problem Solving: {review.problemSolving}/10</span>
-                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700">Optimization: {review.optimization}/10</span>
+                            <span className="rounded-full border border-indigo-200 bg-indigo-50 px-2 py-1 text-indigo-700 dark:border-indigo-400/40 dark:bg-indigo-500/15 dark:text-indigo-200">Overall: {review.overall}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Communication: {review.communication}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Coding: {review.codingAbility}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Problem Solving: {review.problemSolving}/10</span>
+                            <span className="rounded-full border border-slate-200 bg-white px-2 py-1 text-slate-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200">Optimization: {review.optimization}/10</span>
                           </div>
 
-                          <p className="mb-2 text-xs text-slate-400 sm:text-sm">
+                          <p className="mb-2 text-xs text-slate-400 dark:text-slate-500 sm:text-sm">
                             Review is estimated from the saved interview prompt and current activity signals.
                           </p>
 
-                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 sm:text-sm">Strengths</p>
-                          <ul className="mb-3 mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 sm:text-sm">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300 sm:text-sm">Strengths</p>
+                          <ul className="mb-3 mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 dark:text-slate-300 sm:text-sm">
                             {review.strengths.map((item) => (
                               <li key={item}>{item}</li>
                             ))}
                           </ul>
 
-                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 sm:text-sm">Next Attempt Focus</p>
-                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 sm:text-sm">
+                          <p className="text-xs font-semibold uppercase tracking-wide text-slate-700 dark:text-slate-300 sm:text-sm">Next Attempt Focus</p>
+                          <ul className="mt-1 list-disc space-y-1 pl-5 text-xs text-slate-700 dark:text-slate-300 sm:text-sm">
                             {review.nextSteps.map((item) => (
                               <li key={item}>{item}</li>
                             ))}

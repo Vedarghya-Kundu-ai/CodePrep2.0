@@ -20,7 +20,6 @@ function InterviewSpace() {
     const [micActive, setMicActive] = useState(false);
     const [language, setLanguage] = useState('python');
     const panelRootRef = useRef(null);
-    const [callStarted, setCallStarted] = useState(false);
     const questionForInterview = question;
     
 
@@ -169,14 +168,14 @@ function InterviewSpace() {
         <div ref={panelRootRef} className="mx-auto flex w-full max-w-7xl flex-col px-4 pb-8 sm:px-6">
             <div className="mb-6 mt-3 grid min-h-[68vh] grid-cols-1 gap-5 lg:grid-cols-[minmax(260px,1fr)_minmax(0,2fr)]">
                 <div className="order-1 flex h-full flex-col gap-4">
-                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm sm:p-8 ${assistantSpeaking ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200" }`}>
+                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8 ${assistantSpeaking ? "border-indigo-500 ring-2 ring-indigo-100 dark:ring-indigo-500/20" : "border-slate-200 dark:border-slate-800" }`}>
                         <div className="flex justify-center items-center">
                             <img src={waveimg} className="object-contain w-[120px]" alt="animated-gif" />
                         </div>
-                        <h2 className='mb-3 text-4xl font-semibold tracking-tight text-slate-950'>AI Interviewer</h2>
+                        <h2 className='mb-3 text-4xl font-semibold tracking-tight text-slate-950 dark:text-slate-100'>AI Interviewer</h2>
                     </div>
 
-                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm sm:p-8 ${userSpeaking ? "border-indigo-500 ring-2 ring-indigo-100" : "border-slate-200" } `}>
+                    <div data-interview-panel="true" className={`flex flex-1 flex-col items-center justify-center gap-5 rounded-2xl border bg-white p-6 shadow-sm dark:bg-slate-900 sm:p-8 ${userSpeaking ? "border-indigo-500 ring-2 ring-indigo-100 dark:ring-indigo-500/20" : "border-slate-200 dark:border-slate-800" } `}>
                         <img
                              src={micActive ? micIcon : mutedMicIcon }
                             alt="Mic"
@@ -200,16 +199,16 @@ function InterviewSpace() {
                         )}
                     </div>
                 </div>
-                <div data-interview-panel="true" className="order-2 flex h-full min-h-[60vh] flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm sm:p-4">
+                <div data-interview-panel="true" className="order-2 flex h-full min-h-[60vh] flex-col items-center justify-center gap-4 overflow-hidden rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-4">
                     <div className="mt-2 flex w-full flex-wrap items-center justify-between gap-3 px-2">
-                        <h2 className='text-4xl font-semibold tracking-tight text-slate-950 sm:text-5xl'>Code Editor</h2>
+                        <h2 className='text-4xl font-semibold tracking-tight text-slate-950 dark:text-slate-100 sm:text-5xl'>Code Editor</h2>
                         <div className="flex items-center gap-2">
-                            <label htmlFor="language" className="text-sm text-slate-600">Language</label>
+                            <label htmlFor="language" className="text-sm text-slate-600 dark:text-slate-300">Language</label>
                             <select
                                 id="language"
                                 value={language}
                                 onChange={(e) => setLanguage(e.target.value)}
-                                className="rounded border border-slate-300 bg-white px-2 py-1 text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500"
+                                className="rounded border border-slate-300 bg-white px-2 py-1 text-sm text-slate-900 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                             >
                                 <option value="python">Python</option>
                                 <option value="javascript">JavaScript</option>
@@ -236,8 +235,8 @@ function InterviewSpace() {
                     </button>
                 </div>
             </div>
-            <div data-interview-panel="true" className='mx-auto flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm sm:px-6'>
-                <p className='text-center font-mono text-sm text-slate-700'>{Transcription}</p>
+            <div data-interview-panel="true" className='mx-auto flex w-full items-center justify-center rounded-xl border border-slate-200 bg-white px-4 py-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:px-6'>
+                <p className='text-center font-mono text-sm text-slate-700 dark:text-slate-200'>{Transcription}</p>
             </div>
         </div>
     )

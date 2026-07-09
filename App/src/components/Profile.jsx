@@ -1,14 +1,12 @@
 import { useEffect, useState } from "react";
-// AUTHLESS: Removed Navigate import (always accessible)
+import { Navigate } from "react-router-dom";
 import axios from "axios";
 
 import { useAuth } from "../contexts/authContext";
-// AUTHLESS: Commented out Firebase auth import
-// import { doDeleteCurrentUser } from "../firebase/auth";
+import { doDeleteCurrentUser } from "../firebase/auth";
 import { API_BASE_URL } from "../lib/utils";
 
 function Profile() {
-  // AUTHLESS: currentUser and userLoggedIn are always available
   const { currentUser, userLoggedIn, userProfile, refreshUserProfile } = useAuth();
   const [form, setForm] = useState({
     username: "",
@@ -42,89 +40,82 @@ function Profile() {
 
   const handleSave = async (event) => {
     event.preventDefault();
-    // AUTHLESS: Save disabled (no user profile backend)
-    // if (!currentUser?.uid) {
-    //   return;
-    // }
-    // try {
-    //   setIsSaving(true);
-    //   setStatus("");
-    //   await axios.put(`${API_BASE_URL}/users/${currentUser.uid}/profile`, form);
-    //   await refreshUserProfile();
-    //   setStatus("Profile updated successfully.");
-    // } catch {
-    //   setStatus("Failed to update profile. Please try again.");
-    // } finally {
-    //   setIsSaving(false);
-    // }
-    setStatus("Profile persistence disabled in authless mode.");
+    if (!currentUser?.uid) {
+      return;
+    }
+    try {
+      setIsSaving(true);
+      setStatus("");
+      await axios.put(`${API_BASE_URL}/users/${currentUser.uid}/profile`, form);
+      await refreshUserProfile();
+      setStatus("Profile updated successfully.");
+    } catch {
+      setStatus("Failed to update profile. Please try again.");
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   // Added: random profile visual update is now generated and persisted by backend.
   const handleRandomizeProfile = async () => {
-    // AUTHLESS: Randomize disabled (no user profile backend)
-    // if (!currentUser?.uid) {
-    //   return;
-    // }
-    // try {
-    //   setIsRandomizing(true);
-    //   setStatus("");
-    //   const response = await axios.post(`${API_BASE_URL}/users/${currentUser.uid}/randomize`);
-    //   const updated = response.data;
-    //   setForm((prev) => ({
-    //     ...prev,
-    //     username: updated.username || prev.username,
-    //     profile_pic: updated.profile_pic || prev.profile_pic,
-    //   }));
-    //   await refreshUserProfile();
-    //   setStatus("Random profile style applied.");
-    // } catch {
-    //   setStatus("Failed to randomize profile. Please try again.");
-    // } finally {
-    //   setIsRandomizing(false);
-    // }
-    setStatus("Profile randomization disabled in authless mode.");
+    if (!currentUser?.uid) {
+      return;
+    }
+    try {
+      setIsRandomizing(true);
+      setStatus("");
+      const response = await axios.post(`${API_BASE_URL}/users/${currentUser.uid}/randomize`);
+      const updated = response.data;
+      setForm((prev) => ({
+        ...prev,
+        username: updated.username || prev.username,
+        profile_pic: updated.profile_pic || prev.profile_pic,
+      }));
+      await refreshUserProfile();
+      setStatus("Random profile style applied.");
+    } catch {
+      setStatus("Failed to randomize profile. Please try again.");
+    } finally {
+      setIsRandomizing(false);
+    }
   };
 
   // Added: permanent delete flow for Firebase auth + backend data with confirmation.
   const handleDeleteAccount = async () => {
-    // AUTHLESS: Delete disabled (no user profile backend)
-    // if (!currentUser?.uid) {
-    //   return;
-    // }
-    // const confirmed = window.confirm(
-    //   "This will permanently delete your account, profile, and question history. This action cannot be undone. Continue?",
-    // );
-    // if (!confirmed) {
-    //   return;
-    // }
-    // const userId = currentUser.uid;
-    // try {
-    //   setIsDeleting(true);
-    //   setStatus("");
-    //   await doDeleteCurrentUser();
-    //   await axios.delete(`${API_BASE_URL}/users/${userId}/full-delete`);
-    // } catch (error) {
-    //   if (error?.code === "auth/requires-recent-login") {
-    //     setStatus("Please log in again, then retry account deletion.");
-    //   } else {
-    //     setStatus("Account deletion failed. Please try again.");
-    //   }
-    // } finally {
-    //   setIsDeleting(false);
-    // }
-    setStatus("Account deletion disabled in authless mode.");
+    if (!currentUser?.uid) {
+      return;
+    }
+    const confirmed = window.confirm(
+      "This will permanently delete your account, profile, and question history. This action cannot be undone. Continue?",
+    );
+    if (!confirmed) {
+      return;
+    }
+    const userId = currentUser.uid;
+    try {
+      setIsDeleting(true);
+      setStatus("");
+      await doDeleteCurrentUser();
+      await axios.delete(`${API_BASE_URL}/users/${userId}/full-delete`);
+    } catch (error) {
+      if (error?.code === "auth/requires-recent-login") {
+        setStatus("Please log in again, then retry account deletion.");
+      } else {
+        setStatus("Account deletion failed. Please try again.");
+      }
+    } finally {
+      setIsDeleting(false);
+    }
   };
 
-  // AUTHLESS: Profile is always accessible
-  // if (!userLoggedIn) {
-  //   return <Navigate to="/Login" />;
-  // }
+  if (!userLoggedIn) {
+    return <Navigate to="/Login" />;
+  }
 
   return (
     <div className="mx-auto w-full max-w-4xl px-4 py-8 sm:px-6">
-      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-7">
-        <h1 className="mb-6 text-center text-4xl font-bold tracking-tight text-slate-950 sm:text-5xl">Edit Profile</h1>
+      <div className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-7">
+        <h1 className="mb-6 text-center text-4xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-5xl">Edit Profile</h1>
 
         <form onSubmit={handleSave} className="space-y-5">
           <div className="flex flex-col items-center gap-3 sm:flex-row sm:items-center sm:justify-between">
@@ -132,11 +123,11 @@ function Profile() {
               <img
                 src={form.profile_pic || "https://api.dicebear.com/9.x/thumbs/svg?seed=default-profile"}
                 alt="Profile"
-                className="h-20 w-20 rounded-full border border-slate-200 bg-slate-100 object-cover"
+                className="h-20 w-20 rounded-full border border-slate-200 bg-slate-100 object-cover dark:border-slate-700 dark:bg-slate-800"
               />
               <div>
-                <p className="text-sm text-slate-700">{currentUser?.email || userProfile?.email || ""}</p>
-                <p className="text-xs text-slate-500">{userProfile?.auth_provider || "unknown"}</p>
+                <p className="text-sm text-slate-700 dark:text-slate-200">{currentUser?.email || userProfile?.email || ""}</p>
+                <p className="text-xs text-slate-500 dark:text-slate-400">{userProfile?.auth_provider || "unknown"}</p>
               </div>
             </div>
             <button
@@ -150,68 +141,68 @@ function Profile() {
           </div>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
-            <label className="space-y-1 text-sm text-slate-700">
+            <label className="space-y-1 text-sm text-slate-700 dark:text-slate-300">
               <span>Username</span>
               <input
                 value={form.username}
                 onChange={(e) => updateField("username", e.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 required
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-700">
+            <label className="space-y-1 text-sm text-slate-700 dark:text-slate-300">
               <span>Profile Pic URL</span>
               <input
                 value={form.profile_pic}
                 onChange={(e) => updateField("profile_pic", e.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 placeholder="https://..."
               />
             </label>
           </div>
 
-          <label className="block space-y-1 text-sm text-slate-700">
+          <label className="block space-y-1 text-sm text-slate-700 dark:text-slate-300">
             <span>Bio</span>
             <textarea
               value={form.bio}
               onChange={(e) => updateField("bio", e.target.value)}
-              className="min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+              className="min-h-24 w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
               placeholder="Write a short bio"
             />
           </label>
 
           <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-            <label className="space-y-1 text-sm text-slate-700">
+            <label className="space-y-1 text-sm text-slate-700 dark:text-slate-300">
               <span>LinkedIn</span>
               <input
                 value={form.linkedin}
                 onChange={(e) => updateField("linkedin", e.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 placeholder="linkedin.com/in/..."
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-700">
+            <label className="space-y-1 text-sm text-slate-700 dark:text-slate-300">
               <span>GitHub</span>
               <input
                 value={form.github}
                 onChange={(e) => updateField("github", e.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 placeholder="github.com/..."
               />
             </label>
-            <label className="space-y-1 text-sm text-slate-700">
+            <label className="space-y-1 text-sm text-slate-700 dark:text-slate-300">
               <span>X</span>
               <input
                 value={form.x_handle}
                 onChange={(e) => updateField("x_handle", e.target.value)}
-                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none"
+                className="w-full rounded-lg border border-slate-300 bg-white px-3 py-2 text-slate-900 focus:border-indigo-500 focus:outline-none dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                 placeholder="x.com/..."
               />
             </label>
           </div>
 
           <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
-            <p className="text-sm text-slate-600">{status}</p>
+            <p className="text-sm text-slate-600 dark:text-slate-300">{status}</p>
             <button
               type="submit"
               disabled={isSaving || isDeleting}
@@ -221,7 +212,7 @@ function Profile() {
             </button>
           </div>
 
-          <div className="rounded-xl border border-red-300/20 bg-red-500/10 p-4">
+          <div className="rounded-xl border border-red-300/20 bg-red-500/10 p-4 dark:border-red-400/20">
             <p className="text-sm font-semibold text-red-200">Danger Zone</p>
             <p className="mt-1 text-xs text-red-100/80">
               Delete your account permanently. This removes Firebase auth, profile data, and question history.

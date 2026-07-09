@@ -56,11 +56,16 @@ function Dashboard() {
     }, []);
 
     async function handleGenerate(selectedQuestion, questionId) {
+        if (!currentUser?.uid) {
+            navigate("/Login");
+            return;
+        }
+
         setGeneratingQuestionId(questionId);
 
         try {
             await axios.post(`${API_BASE_URL}/add_question`, {
-                user: "authless-user-001",
+                user: currentUser.uid,
                 question: selectedQuestion,
             });
         } catch (error) {
@@ -113,14 +118,14 @@ function Dashboard() {
         >
             <h1
                 ref={titleRef}
-                className="mb-3 text-center text-4xl font-bold leading-relaxed tracking-tight text-slate-950 sm:text-5xl md:text-6xl"
+                className="mb-3 text-center text-4xl font-bold leading-relaxed tracking-tight text-slate-950 dark:text-slate-100 sm:text-5xl md:text-6xl"
             >
                 Ready to ace your next coding interview?
             </h1>
 
             <h2
                 ref={subtitleRef}
-                className="-mt-1 mb-10 max-w-4xl text-center text-base leading-relaxed text-slate-600 sm:text-xl md:text-2xl lg:text-3xl"
+                className="-mt-1 mb-10 max-w-4xl text-center text-base leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl md:text-2xl lg:text-3xl"
             >
                 Pick a DSA topic, choose a difficulty, and generate your interview instantly.
             </h2>
@@ -130,7 +135,7 @@ function Dashboard() {
                 className="mt-3 w-full rounded-2xl p-4 sm:p-6"
             >
                 <div className="mb-3 flex items-center justify-between gap-2">
-                    <p className="text-2xl font-semibold text-slate-950 sm:text-3xl">
+                    <p className="text-2xl font-semibold text-slate-950 dark:text-slate-100 sm:text-3xl">
                         Choose a Topic
                     </p>
                 </div>
@@ -142,8 +147,8 @@ function Dashboard() {
                             onClick={() => setActiveTopicIndex(index)}
                             className={`cursor-pointer rounded-lg border px-4 py-2 text-sm font-semibold transition-all ${
                                 index === activeTopicIndex
-                                    ? "border-indigo-600 bg-indigo-50 text-indigo-700"
-                                    : "border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-700"
+                                    ? "border-indigo-600 bg-indigo-50 text-indigo-700 dark:border-indigo-400 dark:bg-indigo-500/15 dark:text-indigo-200"
+                                    : "border-slate-200 bg-white text-slate-700 hover:border-indigo-300 hover:text-indigo-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-400 dark:hover:text-indigo-300"
                             }`}
                             type="button"
                         >
@@ -152,16 +157,16 @@ function Dashboard() {
                     ))}
                 </div>
 
-                <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm">
+                <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-sm dark:border-slate-800 dark:bg-slate-900">
                     <div className="mb-5 flex items-center justify-between">
-                        <p className="text-2xl font-semibold text-slate-950 sm:text-3xl">
+                        <p className="text-2xl font-semibold text-slate-950 dark:text-slate-100 sm:text-3xl">
                             {activeTopic.name}
                         </p>
                     </div>
 
                     <div className="mb-8 flex items-center gap-3">
                         <label
-                            className="text-slate-700"
+                            className="text-slate-700 dark:text-slate-300"
                             htmlFor="difficulty-level"
                         >
                             Select Difficulty:
@@ -171,7 +176,7 @@ function Dashboard() {
                             id="difficulty-level"
                             value={selectedDifficulty}
                             onChange={handleDifficultyChange}
-                            className="rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900"
+                            className="rounded-md border border-slate-300 bg-white px-3 py-2 text-slate-900 dark:border-slate-700 dark:bg-slate-950 dark:text-slate-100"
                         >
                             <option value="">-- Select --</option>
                             <option value="Easy">Easy</option>
