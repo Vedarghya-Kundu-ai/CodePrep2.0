@@ -108,7 +108,7 @@ function History() {
   return (
     <div className="px-4 py-8 text-slate-900 dark:text-slate-100 sm:px-6">
       <div className="mx-auto max-w-4xl">
-        <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-6xl">History</h1>
+        <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-6xl">Past Interviews</h1>
 
         {questions.length === 0 ? (
           <p className="mx-auto max-w-xl rounded-xl border border-slate-200 bg-white px-6 py-5 text-center text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">No history found.</p>

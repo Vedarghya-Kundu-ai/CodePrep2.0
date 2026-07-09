@@ -61,7 +61,7 @@ function Navbar({ darkMode, setDarkMode }) {
                 to="/History"
                 className="font-medium text-slate-700 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-300"
               >
-                History
+                Past Interviews
               </Link>
             </li>
           </>
