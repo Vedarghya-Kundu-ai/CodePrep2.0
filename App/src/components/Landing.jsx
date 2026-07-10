@@ -312,12 +312,6 @@ function Landing({ darkMode, setDarkMode }) {
               >
                 Start Free <ArrowRight size={18} />
               </Link>
-              <button
-                onClick={() => scrollTo("features")}
-                className="inline-flex cursor-pointer items-center gap-2 rounded-lg border border-slate-300 bg-white px-6 py-3 text-base font-medium text-slate-700 shadow-sm transition hover:border-indigo-400 hover:text-indigo-700 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-200 dark:hover:border-indigo-400 dark:hover:text-indigo-300"
-              >
-                View Demo
-              </button>
             </div>
           </div>
 

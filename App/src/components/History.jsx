@@ -4,6 +4,7 @@ import axios from "axios";
 import { Navigate, useNavigate } from "react-router-dom";
 import { gsap } from "gsap";
 import { API_BASE_URL } from "../lib/utils";
+import { Loader2 } from "lucide-react";
 
 const clamp = (value, min, max) => Math.max(min, Math.min(max, value));
 
@@ -50,6 +51,7 @@ function createInterviewReview(questionText) {
 
 function History() {
   const [questions, setQuestions] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [expandedReviewId, setExpandedReviewId] = useState(null);
   const { currentUser, userLoggedIn } = useAuth();
   const userId = currentUser?.uid;
@@ -60,14 +62,17 @@ function History() {
   useEffect(() => {
     if (!userId) {
       setQuestions([]);
+      setLoading(false);
       return;
     }
 
+    setLoading(true);
     axios.get(`${API_BASE_URL}/questions/${userId}`)
       .then(res => {
         setQuestions(res.data);
       })
-      .catch(err => console.log("Failed to load questions", err));
+      .catch(err => console.log("Failed to load questions", err))
+      .finally(() => setLoading(false));
   }, [userId]);
 
   // Added: GSAP page intro animation for history title and cards.
@@ -110,7 +115,11 @@ function History() {
       <div className="mx-auto max-w-4xl">
         <h1 ref={headingRef} className="mb-8 text-center text-5xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-6xl">Past Interviews</h1>
 
-        {questions.length === 0 ? (
+        {loading ? (
+          <div className="flex justify-center py-16">
+            <Loader2 className="animate-spin text-indigo-600" size={32} />
+          </div>
+        ) : questions.length === 0 ? (
           <p className="mx-auto max-w-xl rounded-xl border border-slate-200 bg-white px-6 py-5 text-center text-slate-600 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300">No history found.</p>
         ) : (
           <ul ref={listRef} className="space-y-4">

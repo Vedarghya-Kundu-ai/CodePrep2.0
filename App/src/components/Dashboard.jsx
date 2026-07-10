@@ -5,6 +5,7 @@ import axios from 'axios';
 import { gsap } from 'gsap';
 import { DSA_ROADMAP } from '../lib/dsaRoadmap';
 import { API_BASE_URL } from '../lib/utils';
+import { Loader2 } from "lucide-react";
 
 function Dashboard() {
     const [activeTopicIndex, setActiveTopicIndex] = useState(0);
@@ -196,7 +197,7 @@ function Dashboard() {
                             type="button"
                         >
                             {generatingQuestionId
-                                ? "Please wait..."
+                                ? <><Loader2 className="inline animate-spin" size={16} /> Generating...</>
                                 : "Generate Interview"}
                         </button>
                     </div>
