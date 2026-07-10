@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useAuth } from '../contexts/authContext';
 import axios from 'axios';
@@ -57,7 +57,7 @@ function Dashboard() {
 
     async function handleGenerate(selectedQuestion, questionId) {
         if (!currentUser?.uid) {
-            navigate("/Login");
+            navigate("/login");
             return;
         }
 
@@ -74,7 +74,7 @@ function Dashboard() {
             setGeneratingQuestionId(null);
         }
 
-        navigate("/interviewSpace", {
+        navigate("/interview/" + encodeURIComponent(questionId), {
             state: {
                 question: selectedQuestion,
             },

@@ -64,7 +64,9 @@ function InterviewSpace() {
     const navigate = useNavigate();
     
     useEffect(() => {
-        const vapi = new Vapi(import.meta.env.VITE_VAPI_API_KEY); // VAPI_API_KEY
+        const vapi 
+        
+        = new Vapi(import.meta.env.VITE_VAPI_API_KEY); // VAPI_API_KEY
         vapiref.current = vapi;
         vapiref.current.on('message', (message) => {
             if(message.role == "assistant") {

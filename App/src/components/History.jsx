@@ -94,7 +94,7 @@ function History() {
   }
 
   function handleReattempt(question) {
-    navigate("/interviewSpace", { state: { question } });
+    navigate("/interview/" + encodeURIComponent(question), { state: { question } });
   }
 
   function toggleReview(id) {
@@ -102,7 +102,7 @@ function History() {
   }
 
   if (!userLoggedIn) {
-    return <Navigate to="/Login" />;
+    return <Navigate to="/login" />;
   }
 
   return (

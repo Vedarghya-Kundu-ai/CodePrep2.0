@@ -11,7 +11,7 @@ function Navbar({ darkMode, setDarkMode }) {
     if(confirm("Sign out ?")) {
       try {
         await doSignOut();
-        navigate("/Login");
+        navigate("/");
       } catch {
         alert("Sign out failed. Please try again.");
       }
@@ -50,7 +50,7 @@ function Navbar({ darkMode, setDarkMode }) {
           <>
             <li>
               <Link
-                to="/Dashboard"
+                to="/dashboard"
                 className="font-medium text-slate-700 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-300"
               >
                 Dashboard
@@ -58,7 +58,7 @@ function Navbar({ darkMode, setDarkMode }) {
             </li>
             <li>
               <Link
-                to="/History"
+                to="/history"
                 className="font-medium text-slate-700 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-300"
               >
                 Past Interviews
@@ -82,7 +82,7 @@ function Navbar({ darkMode, setDarkMode }) {
           <>
             <li>
               <Link
-                to="/Login"
+                to="/login"
                 className="font-medium text-slate-700 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-300"
               >
                 Login
@@ -90,7 +90,7 @@ function Navbar({ darkMode, setDarkMode }) {
             </li>
             <li>
               <Link
-                to="/SignUp"
+                to="/signup"
                 className="font-medium text-slate-700 hover:text-indigo-700 dark:text-slate-200 dark:hover:text-indigo-300"
               >
                 Sign Up

@@ -29,7 +29,7 @@ function SignUp() {
 
     try {
       await doCreateUserWithEmailAndPassword(email, password);
-      navigate("/Dashboard");
+      navigate("/dashboard");
     } catch {
       setError("Sign up failed. Try again.");
     } finally {
@@ -43,7 +43,7 @@ function SignUp() {
 
     try {
       await doSignInWithGoogle();
-      navigate("/Dashboard");
+      navigate("/dashboard");
     } catch {
       setError("Google sign up failed.");
     } finally {
@@ -113,7 +113,7 @@ function SignUp() {
 
           <div className="mt-4 text-center">
             <Link
-              to="/Login"
+              to="/login"
               className="text-sm font-medium text-indigo-700 hover:underline"
             >
               Already have an account? Login

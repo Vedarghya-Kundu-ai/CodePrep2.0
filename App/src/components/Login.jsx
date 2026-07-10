@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { doSignInWithEmailAndPassword, doSignInWithGoogle } from "../firebase/auth";
 import { useAuth } from "../contexts/authContext";
 import { Navigate, Link } from "react-router-dom";
@@ -41,7 +41,7 @@ function Login() {
 
   return (
     <div className="flex min-h-[calc(100vh-7rem)] items-center justify-center px-4 py-8 sm:px-6">
-      {userLoggedIn ? <Navigate to="/Dashboard" /> : null}
+      {userLoggedIn ? <Navigate to="/dashboard" /> : null}
 
       <div className="w-full max-w-md rounded-2xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-8">
         <h1 className="mb-6 text-center text-4xl font-bold tracking-tight text-slate-950 dark:text-slate-100 sm:text-5xl">
@@ -102,7 +102,7 @@ function Login() {
 
         <div className="mt-4 text-center">
           <Link
-            to="/SignUp"
+            to="/signup"
             className="text-sm font-medium text-indigo-700 hover:underline"
           >
             create a new account?

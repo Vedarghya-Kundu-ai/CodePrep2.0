@@ -14,23 +14,11 @@ export function AuthProvider({ children }) {
     const [currentUser, setCurrentUser] = useState(null);
     const[userLoggedIn, setUserLoggedIn] = useState(false);
     const[loading, setLoading] = useState(true);
-    const [userProfile, setUserProfile] = useState(null);
     
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, initializeUser);
         return unsubscribe;
     }, [])
-
-    async function refreshUserProfile() {
-        if (currentUser?.uid) {
-            try {
-                const response = await axios.get(`${API_BASE_URL}/users/${currentUser.uid}`);
-                setUserProfile(response.data);
-            } catch (error) {
-                console.error("Failed to fetch user profile:", error);
-            }
-        }
-    }
 
     async function initializeUser(user) {
         if(user){
@@ -42,16 +30,12 @@ export function AuthProvider({ children }) {
                     email: user.email || `${user.uid}@firebase.local`,
                     auth_provider: user.providerData?.[0]?.providerId || "firebase"
                 });
-                const response = await axios.get(`${API_BASE_URL}/users/${user.uid}`);
-                setUserProfile(response.data);
             } catch (error) {
                 console.error("Failed to sync user with backend:", error);
-                setUserProfile(null);
             }
         } else{
             setCurrentUser(null);
             setUserLoggedIn(false);
-            setUserProfile(null);
         }
         setLoading(false)
     }
@@ -59,8 +43,6 @@ export function AuthProvider({ children }) {
         currentUser,
         userLoggedIn,
         loading,
-        userProfile,
-        refreshUserProfile
     }
 
     return (
